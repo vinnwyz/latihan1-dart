@@ -50,26 +50,77 @@ void lihatpos(){
 }
 
 void selesaikanpos(){
+  print('Pilih Pos Yang Ingin Diselesaikan : ');
   print('1. posa');
   print('2. posb');
   print('3. posc');
   stdout.write('Mau Pilih Pos Yang Mana : ');
-  var input = int.parse(stdin.readLineSync()!);
-  switch(input){
-    case 1 :
-    print('${posa['plat']}');
-    case 2 : 
-    print('${posb['plat']}');
-    case 3 :
-    print('${posc['plat']}');
-    }
+  var inputselesai = int.parse(stdin.readLineSync()!);
+  
+  switch(inputselesai){
 
-  switch(input){
-    case 1 :
-    
-    
+    case 1:
+    if (posa['plat']==null){
+          print('pos sudah kosong');
+        }else {
+          print('${posa['plat']} selesai !');
+          posa['plat']=null;
+          if(waitinglist.isNotEmpty){
+            posa['plat']= waitinglist[0];
+            waitinglist.removeAt(0);
+          }
+          
+        }
+        break;
+      case 2:
+        if (posb['plat']==null){
+          print('pos sudah kosong');
+        }else {
+          print('${posb['plat']} selesai !');
+          posb['plat']=null;
+          if(waitinglist.isNotEmpty){
+            posb['plat']= waitinglist[0];
+            waitinglist.removeAt(0);
+          }
+        }
+        break;
+      case 3:
+        if (posc['plat']==null){
+          print('pos sudah kosong');
+        }else {
+          print('${posc['plat']} selesai !');
+          posc['plat']=null;
+          if(waitinglist.isNotEmpty){
+            posc['plat']= waitinglist[0];
+            waitinglist.removeAt(0);
+          }
+        }  
+        break;
+      default:
+        print('tidak terdapat pilihan tersebut');
+        selesaikanpos();
   }
+}   
 
+
+void keluarapp(){
+  exit(0);
+}
+
+
+void validasi(){
+  
+  while (jalan == false){
+    stdout.write('apakah anda ingin melanjutkan ptogram? Y/N = ');
+    String inputvalid = stdin.readLineSync()?? '';
+
+    if (inputvalid == 'Y'){
+      jalan = true;
+    }else if(inputvalid == 'N'){
+     exit(0);
+    }
+  }
+  
 }
 
 while(jalan==true){
@@ -78,24 +129,33 @@ while(jalan==true){
   var input = int.parse(stdin.readLineSync()!);
   switch(input){
     case 1:
-    tambahlist();
-    break;
-
-    case 2:
-    lihatlist();
-    break;
-
-    case 3:
-    lihatpos();
-    break;
-
-    case 4:
+        tambahlist();
+        jalan=false;
+        validasi();
+        break;
+      case 2:
+        lihatlist();
+        jalan=false;
+        validasi();
+        break;
+      case 3:
+        lihatpos(); 
+        jalan=false;
+        validasi();
+        break;
+      case 4:
+        selesaikanpos();
+        jalan=false;
+        validasi();
+        break;
+      case 5:
+        keluarapp();  
+      default:
+       print('tidak ada pilihan tersebut');
 
   }
 }
 
 
-
-
-
 }
+
